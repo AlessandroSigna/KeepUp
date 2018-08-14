@@ -5,20 +5,33 @@ using UnityEngine;
 public class BlockSpawner : MonoBehaviour {
 
     public GameObject blockPrefab;
-    public CharacterSwitcher characterSwitcher;
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public int maxBlocks = 3;
+    private int nBlocks = 0;
+
+
+    public static BlockSpawner Instance = null;
+    // Use this for initialization
+    void Start ()
+    {
+        UIController.Instance.UpdateBlocks(nBlocks, maxBlocks);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && characterSwitcher.currentCharacter.GetComponent<CharacterBehaviour>().canBuild)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && CharacterSwitcher.Instance.currentCharacter.GetComponent<CharacterBehaviour>().canBuild)
         {
-            var mousePos = Input.mousePosition;
-            var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
-            objectPos.z = 0;
-            Instantiate(blockPrefab, objectPos, Quaternion.identity);
+            if (nBlocks < maxBlocks)
+            {
+                var mousePos = Input.mousePosition;
+                var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
+                objectPos.z = 0;
+                Instantiate(blockPrefab, objectPos, Quaternion.identity);
+                UIController.Instance.UpdateBlocks(++nBlocks, maxBlocks);
+            }
         }
     }
 }

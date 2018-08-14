@@ -8,9 +8,15 @@ public class CharacterSwitcher : MonoBehaviour {
     public GameObject support;
     [HideInInspector]
     public GameObject currentCharacter;
+
+    public static CharacterSwitcher Instance = null;
 	// Use this for initialization
 	void Start ()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         hero.GetComponent<CharacterBehaviour>().enabled = true;
         support.GetComponent<CharacterBehaviour>().enabled = false;
         currentCharacter = hero;
@@ -43,5 +49,11 @@ public class CharacterSwitcher : MonoBehaviour {
         hero.GetComponent<CharacterBehaviour>().enabled = false;
         support.GetComponent<CharacterBehaviour>().enabled = true;
         currentCharacter = support;
+    }
+
+    public void DisablePlayers()
+    {
+        hero.GetComponent<CharacterBehaviour>().enabled = false;
+        support.GetComponent<CharacterBehaviour>().enabled = false;
     }
 }
