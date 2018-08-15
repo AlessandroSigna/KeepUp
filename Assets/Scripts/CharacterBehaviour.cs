@@ -29,6 +29,7 @@ public class CharacterBehaviour : MonoBehaviour {
         {
             //jump
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+            AudioManager.Instance.PlayJump();
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {

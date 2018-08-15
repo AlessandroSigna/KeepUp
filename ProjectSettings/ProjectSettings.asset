@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 14
-  productGUID: 00000000000000000000000000000000
+  productGUID: ad593245fb13a6043b880bccb0afbf2c
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   defaultScreenOrientation: 4
@@ -740,7 +740,7 @@ PlayerSettings:
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
   cloudProjectId: d2f95e33-b090-45bf-b8e9-4cafe047f3b6
-  projectName: Platformer-2D
+  projectName: KeepUp
   organizationId: oceano
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0

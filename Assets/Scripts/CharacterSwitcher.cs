@@ -9,6 +9,8 @@ public class CharacterSwitcher : MonoBehaviour {
     public GameObject currentCharacter;
     private int currentIndex = 0;
 
+    public AudioClip cough;
+
     public static CharacterSwitcher Instance = null;
 	// Use this for initialization
 	void Awake ()
@@ -31,6 +33,11 @@ public class CharacterSwitcher : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             SwitchCharacter();
+        }
+        if (currentIndex == 0 && Mathf.CeilToInt(Time.time) % 10 == 0 && Time.time != 0)
+        {
+            GetComponent<AudioSource>().clip = cough;
+            GetComponent<AudioSource>().Play();
         }
 	}
 
