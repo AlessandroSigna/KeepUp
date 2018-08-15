@@ -4,56 +4,51 @@ using UnityEngine;
 
 public class CharacterSwitcher : MonoBehaviour {
 
-    public GameObject hero;
-    public GameObject support;
+    public GameObject[] playableCharacters;
     [HideInInspector]
     public GameObject currentCharacter;
+    private int currentIndex = 0;
 
     public static CharacterSwitcher Instance = null;
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         if (Instance == null)
         {
             Instance = this;
         }
-        hero.GetComponent<CharacterBehaviour>().enabled = true;
-        support.GetComponent<CharacterBehaviour>().enabled = false;
-        currentCharacter = hero;
+        playableCharacters[0].GetComponent<CharacterBehaviour>().enabled = true;
+        currentCharacter = playableCharacters[0];
+        currentIndex = 0;
+        for (int i = 1; i < playableCharacters.Length; i++)
+        {
+            playableCharacters[i].GetComponent<CharacterBehaviour>().enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (currentCharacter == hero)
-            {
-                PlaySupport();
-            }
-            else
-            {
-                PlayHero();
-            }
+            SwitchCharacter();
         }
 	}
 
-    private void PlayHero()
+    public void SwitchCharacter()
     {
-        hero.GetComponent<CharacterBehaviour>().enabled = true;
-        support.GetComponent<CharacterBehaviour>().enabled = false;
-        currentCharacter = hero;
-    }
+        playableCharacters[currentIndex].GetComponent<CharacterBehaviour>().enabled = false;
+        currentIndex = ++currentIndex % playableCharacters.Length;
+        currentCharacter = playableCharacters[currentIndex];
+        playableCharacters[currentIndex].GetComponent<CharacterBehaviour>().enabled = true;
 
-    private void PlaySupport()
-    {
-        hero.GetComponent<CharacterBehaviour>().enabled = false;
-        support.GetComponent<CharacterBehaviour>().enabled = true;
-        currentCharacter = support;
     }
+    
 
     public void DisablePlayers()
     {
-        hero.GetComponent<CharacterBehaviour>().enabled = false;
-        support.GetComponent<CharacterBehaviour>().enabled = false;
+        foreach (GameObject character in playableCharacters)
+        {
+            character.GetComponent<CharacterBehaviour>().enabled = false;
+        }
     }
 }

@@ -12,7 +12,7 @@ public class CharacterBehaviour : MonoBehaviour {
     public float groundCheckRadius;
     public bool isGrounded = false;
     public float speed;
-    public bool canBuild;
+    public int boxesAvailable;
 
     private Rigidbody2D _rigidbody;
     private bool jumping = false;

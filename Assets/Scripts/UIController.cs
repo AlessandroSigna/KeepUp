@@ -30,9 +30,9 @@ public class UIController : MonoBehaviour {
         timeText.text = Mathf.CeilToInt(time).ToString();
     }
 
-    public void UpdateBlocks(int n, int max)
+    public void UpdateBlocks(int n)
     {
-        blocksText.text = "" + n + "/" + max;
+        blocksText.text = "BOX: " + n;
     }
 
     public void ShowWinPanel()

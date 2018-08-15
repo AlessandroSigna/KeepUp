@@ -5,15 +5,17 @@ using UnityEngine;
 public class BlockSpawner : MonoBehaviour {
 
     public GameObject blockPrefab;
-    public int maxBlocks = 3;
+    private int maxBlocks = 3;
     private int nBlocks = 0;
+    private GameObject currentCharacter;
 
 
     public static BlockSpawner Instance = null;
     // Use this for initialization
     void Start ()
     {
-        UIController.Instance.UpdateBlocks(nBlocks, maxBlocks);
+        currentCharacter = CharacterSwitcher.Instance.currentCharacter;
+        UIController.Instance.UpdateBlocks(currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable);
         if (Instance == null)
         {
             Instance = this;
@@ -21,17 +23,20 @@ public class BlockSpawner : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && CharacterSwitcher.Instance.currentCharacter.GetComponent<CharacterBehaviour>().canBuild)
+	void Update ()
+    {
+        print(currentCharacter.name);
+        currentCharacter = CharacterSwitcher.Instance.currentCharacter;
+        if (Input.GetKeyDown(KeyCode.Mouse0) && CharacterSwitcher.Instance.currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable > 0)
         {
-            if (nBlocks < maxBlocks)
-            {
-                var mousePos = Input.mousePosition;
-                var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
-                objectPos.z = 0;
-                Instantiate(blockPrefab, objectPos, Quaternion.identity);
-                UIController.Instance.UpdateBlocks(++nBlocks, maxBlocks);
-            }
+            CharacterSwitcher.Instance.currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable--;
+            var mousePos = Input.mousePosition;
+            var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
+            objectPos.z = 0;
+            Instantiate(blockPrefab, objectPos, Quaternion.identity);
+            
         }
+
+        UIController.Instance.UpdateBlocks(currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable);
     }
 }
