@@ -27,7 +27,7 @@ public class BlockSpawner : MonoBehaviour {
     {
         //print(currentCharacter.name);
         currentCharacter = CharacterSwitcher.Instance.currentCharacter;
-        if (Input.GetKeyDown(KeyCode.Mouse0) && CharacterSwitcher.Instance.currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && CharacterSwitcher.Instance.currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable > 0 && !GameOverManager.Instance.paused)
         {
             CharacterSwitcher.Instance.currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable--;
             var mousePos = Input.mousePosition;

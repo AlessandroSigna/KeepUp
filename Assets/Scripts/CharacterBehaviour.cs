@@ -24,6 +24,10 @@ public class CharacterBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (GameOverManager.Instance.paused)
+        {
+            return;
+        }
         isGrounded = IsGrounded();
         if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
