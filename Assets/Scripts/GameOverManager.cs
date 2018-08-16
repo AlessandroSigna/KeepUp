@@ -7,6 +7,7 @@ public class GameOverManager : MonoBehaviour {
     public float MAX_TIME = 30;
     private bool gameOver;
     public static GameOverManager Instance = null;
+    public bool paused = false;
 
 
     private float computedMaxTime;
@@ -36,8 +37,39 @@ public class GameOverManager : MonoBehaviour {
             GameOver();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!paused)
+                Pause();
+            else
+            {
+                Resume();
+            }
+        }
+
 
 	}
+
+    public void Pause()
+    {
+        paused = true;
+        Time.timeScale = 0;
+        UIController.Instance.ShowPausePanel();
+    }
+
+    public void Resume()
+    {
+        paused = false;
+        Time.timeScale = 1;
+        UIController.Instance.HidePausePanel();
+    }
+
+    public void Quit()
+    {
+        paused = false;
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
 
     public void GoToNextLevel()
     {
@@ -46,6 +78,8 @@ public class GameOverManager : MonoBehaviour {
 
     public void ReloadLevel()
     {
+        paused = false;
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

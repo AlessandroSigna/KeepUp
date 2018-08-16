@@ -11,8 +11,10 @@ public class CharacterBehaviour : MonoBehaviour {
     public LayerMask whatIsGround;
     public float groundCheckRadius;
     public bool isGrounded = false;
+    public bool isSwimming = false;
     public float speed;
     public int boxesAvailable;
+    public float swimSlowFactor = 2;
 
     private Rigidbody2D _rigidbody;
     private bool jumping = false;
@@ -24,28 +26,44 @@ public class CharacterBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (GameOverManager.Instance.paused)
+        {
+            return;
+        }
         isGrounded = IsGrounded();
+
+        float _jumpHeight = jumpHeight;
+        float _moveForce = moveForce;
+        float _maxSpeed = maxSpeed;
+
+        if (isSwimming)
+        {
+            _jumpHeight /= swimSlowFactor;
+            _moveForce /= swimSlowFactor;
+            _maxSpeed /= swimSlowFactor;
+        }
+
         if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
             //jump
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpHeight);
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpHeight);
             AudioManager.Instance.PlayJump();
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             //left
-            _rigidbody.AddForce(new Vector2(-moveForce, 0), ForceMode2D.Force);
+            _rigidbody.AddForce(new Vector2(-_moveForce, 0), ForceMode2D.Force);
         }
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             //right
-            _rigidbody.AddForce(new Vector2(moveForce, 0), ForceMode2D.Force);
+            _rigidbody.AddForce(new Vector2(_moveForce, 0), ForceMode2D.Force);
         }
         speed = _rigidbody.velocity.x;
-        if (speed <= -maxSpeed)
-            _rigidbody.velocity = new Vector2(-maxSpeed, _rigidbody.velocity.y);
-        else if (speed >= maxSpeed)
-            _rigidbody.velocity = new Vector2(maxSpeed, _rigidbody.velocity.y);
+        if (speed <= -_maxSpeed)
+            _rigidbody.velocity = new Vector2(-_maxSpeed, _rigidbody.velocity.y);
+        else if (speed >= _maxSpeed)
+            _rigidbody.velocity = new Vector2(_maxSpeed, _rigidbody.velocity.y);
     }
 
     bool IsGrounded()

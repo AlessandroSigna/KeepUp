@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour {
     public Text blocksText;
     public GameObject GameOverPanel;
     public GameObject WinPanel;
+    public GameObject PausePanel;
 	// Use this for initialization
 	void Start () {
         if (Instance == null)
@@ -24,6 +25,16 @@ public class UIController : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void ShowPausePanel()
+    {
+        PausePanel.SetActive(true);
+    }
+
+    public void HidePausePanel()
+    {
+        PausePanel.SetActive(false);
+    }
 
     public void UpdateTime(float time)
     {
