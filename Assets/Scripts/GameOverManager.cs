@@ -39,9 +39,14 @@ public class GameOverManager : MonoBehaviour {
 
 	}
 
+    public void GoToNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void ReloadLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 
@@ -62,6 +67,7 @@ public class GameOverManager : MonoBehaviour {
         UIController.Instance.ShowWinPanel();
         CharacterSwitcher.Instance.gameObject.SetActive(false);
         BlockSpawner.Instance.gameObject.SetActive(false);
+        AudioManager.Instance.PlayVictory();
         gameOver = true;
     }
     

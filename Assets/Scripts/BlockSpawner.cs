@@ -25,7 +25,7 @@ public class BlockSpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        print(currentCharacter.name);
+        //print(currentCharacter.name);
         currentCharacter = CharacterSwitcher.Instance.currentCharacter;
         if (Input.GetKeyDown(KeyCode.Mouse0) && CharacterSwitcher.Instance.currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable > 0)
         {
@@ -34,7 +34,7 @@ public class BlockSpawner : MonoBehaviour {
             var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
             objectPos.z = 0;
             Instantiate(blockPrefab, objectPos, Quaternion.identity);
-            
+            AudioManager.Instance.PlayBox();
         }
 
         UIController.Instance.UpdateBlocks(currentCharacter.GetComponent<CharacterBehaviour>().boxesAvailable);
