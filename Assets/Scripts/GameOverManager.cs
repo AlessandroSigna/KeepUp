@@ -75,7 +75,12 @@ public class GameOverManager : MonoBehaviour {
 
     public void GoToNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (SceneManager.sceneCount == SceneManager.GetActiveScene().buildIndex)
+        {
+            Quit();
+        }
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ReloadLevel()

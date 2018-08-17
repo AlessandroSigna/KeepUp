@@ -71,4 +71,30 @@ public class UIController : MonoBehaviour {
     {
         GameOverPanel.SetActive(true);
     }
+
+
+    public void PauseCallback()
+    {
+        GameOverManager.Instance.Pause();
+    }
+
+    public void ResumeCallback()
+    {
+        GameOverManager.Instance.Resume();
+    }
+
+    public void QuitCallback()
+    {
+        GameOverManager.Instance.Quit();
+    }
+
+    public void GoToNextLevelCallback()
+    {
+        GameOverManager.Instance.GoToNextLevel();
+    }
+
+    public void ReloadLevelCallback()
+    {
+        GameOverManager.Instance.ReloadLevel();
+    }
 }

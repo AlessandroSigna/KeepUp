@@ -39,7 +39,7 @@ public class CharacterBehaviour : MonoBehaviour {
 
         if (isSwimming)
         {
-            _jumpHeight /= swimSlowFactor;
+            //_jumpHeight /= swimSlowFactor;
             _moveForce /= swimSlowFactor;
             _maxSpeed /= swimSlowFactor;
         }
@@ -55,12 +55,14 @@ public class CharacterBehaviour : MonoBehaviour {
         {
             //left
             _rigidbody.AddForce(new Vector2(-_moveForce, 0), ForceMode2D.Force);
+            transform.localScale = new Vector3(-1, 1, 1);
             HideArrow();
         }
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             //right
             _rigidbody.AddForce(new Vector2(_moveForce, 0), ForceMode2D.Force);
+            transform.localScale = new Vector3(1, 1, 1);
             HideArrow();
         }
         speed = _rigidbody.velocity.x;
