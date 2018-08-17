@@ -15,6 +15,7 @@ public class CharacterBehaviour : MonoBehaviour {
     public float speed;
     public int boxesAvailable;
     public float swimSlowFactor = 2;
+    public GameObject arrow;
 
     private Rigidbody2D _rigidbody;
     private bool jumping = false;
@@ -38,7 +39,7 @@ public class CharacterBehaviour : MonoBehaviour {
 
         if (isSwimming)
         {
-            _jumpHeight /= swimSlowFactor;
+            //_jumpHeight /= swimSlowFactor;
             _moveForce /= swimSlowFactor;
             _maxSpeed /= swimSlowFactor;
         }
@@ -48,16 +49,21 @@ public class CharacterBehaviour : MonoBehaviour {
             //jump
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpHeight);
             AudioManager.Instance.PlayJump();
+            HideArrow();
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             //left
             _rigidbody.AddForce(new Vector2(-_moveForce, 0), ForceMode2D.Force);
+            transform.localScale = new Vector3(-1, 1, 1);
+            HideArrow();
         }
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             //right
             _rigidbody.AddForce(new Vector2(_moveForce, 0), ForceMode2D.Force);
+            transform.localScale = new Vector3(1, 1, 1);
+            HideArrow();
         }
         speed = _rigidbody.velocity.x;
         if (speed <= -_maxSpeed)
@@ -75,6 +81,26 @@ public class CharacterBehaviour : MonoBehaviour {
         }
         
         return false;
+    }
+
+    public void ShowArrow()
+    {
+        arrow.SetActive(true);
+        Color tmp = GetComponent<SpriteRenderer>().color;
+        tmp.a = 1f;
+        GetComponent<SpriteRenderer>().color = tmp;
+    }
+
+    public void HideArrow()
+    {
+        arrow.SetActive(false);
+    }
+
+    public void BeInactive()
+    {
+        Color tmp = GetComponent<SpriteRenderer>().color;
+        tmp.a = 0.5f;
+        GetComponent<SpriteRenderer>().color = tmp;
     }
     
 }

@@ -22,9 +22,12 @@ public class CharacterSwitcher : MonoBehaviour {
         playableCharacters[0].GetComponent<CharacterBehaviour>().enabled = true;
         currentCharacter = playableCharacters[0];
         currentIndex = 0;
+        currentCharacter.GetComponent<CharacterBehaviour>().ShowArrow();
         for (int i = 1; i < playableCharacters.Length; i++)
         {
             playableCharacters[i].GetComponent<CharacterBehaviour>().enabled = false;
+            playableCharacters[i].GetComponent<CharacterBehaviour>().HideArrow();
+            playableCharacters[i].GetComponent<CharacterBehaviour>().BeInactive();
         }
     }
 
@@ -43,10 +46,14 @@ public class CharacterSwitcher : MonoBehaviour {
 
     public void SwitchCharacter()
     {
+
+        currentCharacter.GetComponent<CharacterBehaviour>().BeInactive();
+        currentCharacter.GetComponent<CharacterBehaviour>().HideArrow();
         playableCharacters[currentIndex].GetComponent<CharacterBehaviour>().enabled = false;
         currentIndex = ++currentIndex % playableCharacters.Length;
         currentCharacter = playableCharacters[currentIndex];
         playableCharacters[currentIndex].GetComponent<CharacterBehaviour>().enabled = true;
+        currentCharacter.GetComponent<CharacterBehaviour>().ShowArrow();
 
     }
     

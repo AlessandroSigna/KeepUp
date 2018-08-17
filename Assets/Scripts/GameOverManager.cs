@@ -29,11 +29,13 @@ public class GameOverManager : MonoBehaviour {
         float remainigTime = computedMaxTime - Time.time;
         if (remainigTime > 0)
         {
-            UIController.Instance.UpdateTime(remainigTime);
+            //UIController.Instance.UpdateTime(remainigTime);
+            UIController.Instance.UpdateTime(MAX_TIME, remainigTime);
         }
         else if (remainigTime <= 0)
         {
-            UIController.Instance.UpdateTime(0);
+            //UIController.Instance.UpdateTime(0);
+            UIController.Instance.UpdateTime(MAX_TIME, 0);
             GameOver();
         }
 
@@ -73,7 +75,12 @@ public class GameOverManager : MonoBehaviour {
 
     public void GoToNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (SceneManager.sceneCount == SceneManager.GetActiveScene().buildIndex)
+        {
+            Quit();
+        }
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ReloadLevel()
