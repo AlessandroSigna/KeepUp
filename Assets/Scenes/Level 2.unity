@@ -1347,6 +1347,14 @@ Prefab:
       propertyPath: OnRelease.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1791080144770444, guid: daebb73bab52a3b4d8eab37c26a8a62f, type: 2}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910303879804660, guid: daebb73bab52a3b4d8eab37c26a8a62f, type: 2}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: daebb73bab52a3b4d8eab37c26a8a62f, type: 2}
   m_IsPrefabParent: 0
@@ -46789,6 +46797,14 @@ Prefab:
     - target: {fileID: 1791080144770444, guid: daebb73bab52a3b4d8eab37c26a8a62f, type: 2}
       propertyPath: m_Name
       value: PressurePad up
+      objectReference: {fileID: 0}
+    - target: {fileID: 1910303879804660, guid: daebb73bab52a3b4d8eab37c26a8a62f, type: 2}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791080144770444, guid: daebb73bab52a3b4d8eab37c26a8a62f, type: 2}
+      propertyPath: m_Layer
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: daebb73bab52a3b4d8eab37c26a8a62f, type: 2}
