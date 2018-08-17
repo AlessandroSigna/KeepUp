@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ExitBehaviour : MonoBehaviour {
 
+    List<GameObject> characters = null;
 	// Use this for initialization
 	void Start () {
-		
+        characters = new List<GameObject>();
 	}
 	
 	// Update is called once per frame
@@ -16,9 +17,28 @@ public class ExitBehaviour : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Hero")
+        if (other.gameObject.GetComponent<CharacterBehaviour>() != null)
         {
-            GameOverManager.Instance.Win();
+            if (!characters.Contains(other.gameObject))
+            {
+                characters.Add(other.gameObject);
+                if (characters.Count == CharacterSwitcher.Instance.playableCharacters.Length)
+                {
+                    GameOverManager.Instance.Win();
+                }
+            }
+        }
+    }
+
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<CharacterBehaviour>() != null)
+        {
+            if (!characters.Contains(other.gameObject))
+            {
+                characters.Remove(other.gameObject);
+            }
         }
     }
 }
