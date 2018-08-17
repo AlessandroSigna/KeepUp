@@ -29,11 +29,13 @@ public class GameOverManager : MonoBehaviour {
         float remainigTime = computedMaxTime - Time.time;
         if (remainigTime > 0)
         {
-            UIController.Instance.UpdateTime(remainigTime);
+            //UIController.Instance.UpdateTime(remainigTime);
+            UIController.Instance.UpdateTime(MAX_TIME, remainigTime);
         }
         else if (remainigTime <= 0)
         {
-            UIController.Instance.UpdateTime(0);
+            //UIController.Instance.UpdateTime(0);
+            UIController.Instance.UpdateTime(MAX_TIME, 0);
             GameOver();
         }
 

@@ -13,6 +13,9 @@ public class UIController : MonoBehaviour {
     public GameObject GameOverPanel;
     public GameObject WinPanel;
     public GameObject PausePanel;
+
+    public Sprite[] TimeImages;
+    public Image TimeSprite;
 	// Use this for initialization
 	void Start () {
         if (Instance == null)
@@ -26,6 +29,19 @@ public class UIController : MonoBehaviour {
 		
 	}
 
+    public void UpdateTime(float maxTime, float realTime)
+    {
+        int dim = TimeImages.Length - 1;
+        float f = maxTime / dim;
+        int index = Mathf.CeilToInt( realTime / f);
+        index = dim - index;
+        if (realTime <= 0)
+            index = dim;
+        print(realTime + " -> " + index);
+        TimeSprite.sprite = TimeImages[index];
+        
+    }
+
     public void ShowPausePanel()
     {
         PausePanel.SetActive(true);
@@ -36,14 +52,14 @@ public class UIController : MonoBehaviour {
         PausePanel.SetActive(false);
     }
 
-    public void UpdateTime(float time)
-    {
-        timeText.text = Mathf.CeilToInt(time).ToString();
-    }
+    //public void UpdateTime(float time)
+    //{
+    //    timeText.text ="" + "Time left: " + Mathf.CeilToInt(time).ToString();
+    //}
 
     public void UpdateBlocks(int n)
     {
-        blocksText.text = "BOX: " + n;
+        blocksText.text = " x " + n;
     }
 
     public void ShowWinPanel()
